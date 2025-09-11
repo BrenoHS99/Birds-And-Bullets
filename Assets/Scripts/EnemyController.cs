@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -71,7 +70,7 @@ public class EnemyController : MonoBehaviour
 
             if (hit.collider != null)
             {
-                rb.linearVelocity = new Vector2(0f, 0f);
+                rb.linearVelocity *= -1;
             }
         }
     }
@@ -111,10 +110,23 @@ public class EnemyController : MonoBehaviour
                 }
                 else if (enemyAIActions == 2)
                 {
-                    Vector2 playerDirection = (player.transform.position - transform.position).normalized;
-                    walkingDirection = playerDirection;
-                    rb.linearVelocity = playerDirection * speed;
-                    animator.SetBool("Walking", true);
+                    if (player != null)
+                    {
+                        Vector2 playerDirection = (player.transform.position - transform.position).normalized;
+                        walkingDirection = playerDirection;
+                        rb.linearVelocity = playerDirection * speed;
+                        animator.SetBool("Walking", true);
+                    }
+                    else
+                    {
+                        Vector2 wanderingDirection = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2));
+                        walkingDirection = wanderingDirection;
+                        rb.linearVelocity = wanderingDirection * speed;
+                        if (rb.linearVelocity != new Vector2(0, 0))
+                        {
+                            animator.SetBool("Walking", true);
+                        }
+                    }
                 }
             }
             yield return new WaitForSeconds(Random.Range(enemyAIwaitA, enemyAIwaitB));
