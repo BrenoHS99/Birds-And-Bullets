@@ -17,7 +17,6 @@ public class EnemyController : MonoBehaviour
     private Slider healthbarSlider;
 
     public GameObject healthbar;
-    
 
     private Vector2 hitboxSize;
 
@@ -62,10 +61,6 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Facing", true);
             }
         }
-        if(healthbarSlider != null)
-        {
-            healthbarSlider.value = health / maxHealth;
-        }
     }
 
     private void FixedUpdate()
@@ -109,7 +104,6 @@ public class EnemyController : MonoBehaviour
                     Vector2 wanderingDirection = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2));
                     walkingDirection = wanderingDirection;
                     rb.linearVelocity = wanderingDirection * speed;
-                    Debug.Log(wanderingDirection);
                     if (rb.linearVelocity != new Vector2(0, 0))
                     {
                         animator.SetBool("Walking", true);
@@ -120,12 +114,40 @@ public class EnemyController : MonoBehaviour
                     Vector2 playerDirection = (player.transform.position - transform.position).normalized;
                     walkingDirection = playerDirection;
                     rb.linearVelocity = playerDirection * speed;
-                    Debug.Log("Perseguiu o player");
                     animator.SetBool("Walking", true);
                 }
-                Debug.Log(enemyAIActions);
             }
             yield return new WaitForSeconds(Random.Range(enemyAIwaitA, enemyAIwaitB));
+        }
+    }
+
+    private void TakeKB(GameObject damageObject)
+    {
+        stunned = true;
+        animator.SetBool("Walking", false);
+        Vector2 direction = transform.position - damageObject.transform.position;
+        direction.Normalize();
+        direction *= knockback;
+        rb.linearVelocity = direction;
+        StartCoroutine(StopKB());
+        UpdateHealthBar();
+
+        IEnumerator StopKB()
+        {
+            yield return new WaitForSeconds(knockbackRecover);
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(0f, 0f);
+            }
+            stunned = false;
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthbar != null)
+        {
+            healthbarSlider.value = health / maxHealth;
         }
     }
 
@@ -133,23 +155,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "AOE")
         {
-            stunned = true;
-            animator.SetBool("Walking", false);
-            Vector2 direction = transform.position - collision.gameObject.transform.position;
-            direction.Normalize();
-            direction *= knockback;
-            rb.linearVelocity = direction;
-            StartCoroutine(StopKB());
-
-            IEnumerator StopKB()
-            {
-                yield return new WaitForSeconds(knockbackRecover);
-                if (rb != null)
-                {
-                    rb.linearVelocity = new Vector2(0f, 0f);
-                }
-                stunned = false;
-            }
+            TakeKB(collision.gameObject);
         }
     }
 }

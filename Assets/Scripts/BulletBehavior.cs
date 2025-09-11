@@ -15,6 +15,8 @@ public class BulletBehavior : MonoBehaviour
     public GameObject SplashOnlyForBalloon;
     private GameObject instSplash;
 
+    public float damage = 5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,7 +40,7 @@ public class BulletBehavior : MonoBehaviour
         {
             EnemyController enemyScript = collision.gameObject.GetComponent<EnemyController>();
 
-            enemyScript.health -= 5;
+            enemyScript.health -= damage;
             Instantiate(SplashOnlyForBalloon, this.gameObject.transform.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             Destroy(this.gameObject);
         }

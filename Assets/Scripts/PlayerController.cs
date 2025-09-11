@@ -1,14 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    public float knockbackRecover = 0.5f;
-    public float knockback = 1f;
 
     private Vector2 plrPosition;
     private Rigidbody2D rb;
@@ -20,10 +17,16 @@ public class PlayerController : MonoBehaviour
     public GameObject balloon;
     private GameObject instBalloon;
 
+    public GameObject healthbar;
+    private Slider healthbarSlider;
+    public GameObject healthbarFill;
+    private Image healthbarFillImage;
+
     private float HMov;
     private float VMov;
 
-    public float health = 3f;
+    public float health = 10f;
+    public float maxHealth = 10f;
     public bool stunned = false;
     public bool dying = false;
 
@@ -33,6 +36,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         hitbox = GetComponent<CapsuleCollider2D>();
+        healthbarSlider = healthbar.GetComponent<Slider>();
+        healthbarFillImage = healthbarFill.GetComponent<Image>();
+        health = maxHealth;
+        GiveBalloon();
+        UpdateHealthBar();
     }
 
     // Update is called once per frame
@@ -64,14 +72,6 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("Health", health);
-
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            instBalloon = Instantiate(balloon, gunSpawnpoint.transform.position, gunSpawnpoint.transform.rotation);
-            instBalloon.transform.parent = gunSpawnpoint.parent;
-            instBalloon.transform.name = "Gun";
-        }
     }
     void FixedUpdate()
     {
@@ -88,31 +88,54 @@ public class PlayerController : MonoBehaviour
     void PlayerDying()
     {
         dying = true;
+        Destroy(instBalloon);
         Destroy(rb);
         Destroy(hitbox);
+    }
+
+    private void GiveBalloon()
+    {
+        instBalloon = Instantiate(balloon, gunSpawnpoint.transform.position, gunSpawnpoint.transform.rotation);
+        instBalloon.transform.parent = gunSpawnpoint.parent;
+        instBalloon.transform.name = "Gun";
+    }
+
+    private void TakeDamage(GameObject damageObject, float damage, float knockback, float knockbackRecover)
+    {
+        stunned = true;
+        health -= damage;
+        Vector2 direction = transform.position - damageObject.gameObject.transform.position;
+        direction.Normalize();
+        direction *= knockback;
+        rb.linearVelocity = direction;
+        StartCoroutine(StopKB());
+        UpdateHealthBar();
+
+        IEnumerator StopKB()
+        {
+            yield return new WaitForSeconds(knockbackRecover);
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(0f, 0f);
+            }
+            stunned = false;
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (health <= 0)
+        {
+            healthbarFillImage.color = Color.black;
+        }
+        healthbarSlider.value = health / maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy" && !stunned)
         {
-            stunned = true;
-            health -= 1;
-            Vector2 direction = transform.position - collision.gameObject.transform.position;
-            direction.Normalize();
-            direction *= knockback;
-            rb.linearVelocity = direction;
-            StartCoroutine(StopKB());
-
-            IEnumerator StopKB()
-            {
-                yield return new WaitForSeconds(knockbackRecover);
-                if (rb != null)
-                {
-                    rb.linearVelocity = new Vector2(0f, 0f);
-                }
-                stunned = false;
-            }
+            TakeDamage(collision.gameObject, 3f, 10f, 0.2f);
         }
     }
 }
