@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class EnemyController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
 
     public bool stunned = false;
 
+    public GameObject gun;
+
     private float enemyAIActions = 0f;
     public float enemyAIwaitA = 0.1f;
     public float enemyAIwaitB = 0.5f;
@@ -29,6 +32,12 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
 
     public LayerMask wallLayer;
+
+    public GameObject blockedArea;
+    private BlockedNewArea blockedAreaScript;
+
+    private bool enemiesDefeatedRebound = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -37,6 +46,7 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         hitbox = GetComponent<CapsuleCollider2D>();
         healthbarSlider = healthbar.GetComponent<Slider>();
+        blockedAreaScript = blockedArea.GetComponent<BlockedNewArea>();
         health = maxHealth;
         StartCoroutine(EnemyAI());
     }
@@ -59,6 +69,12 @@ public class EnemyController : MonoBehaviour
             {
                 animator.SetBool("Facing", true);
             }
+        }
+
+        if (health <= 0 && enemiesDefeatedRebound)
+        {
+            enemiesDefeatedRebound = false;
+            blockedAreaScript.enemiesDefeated++;
         }
     }
 
@@ -84,6 +100,7 @@ public class EnemyController : MonoBehaviour
         Destroy(rb);
         Destroy(hitbox);
         Destroy(healthbar);
+        Destroy(gun);
     }
 
     IEnumerator EnemyAI()

@@ -8,6 +8,8 @@ TagManager:
   - Gun
   - Bullet
   - AOE
+  - EnemySpawn
+  - Sfx
   layers:
   - Default
   - TransparentFX

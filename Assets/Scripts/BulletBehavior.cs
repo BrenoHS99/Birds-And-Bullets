@@ -15,6 +15,8 @@ public class BulletBehavior : MonoBehaviour
     public GameObject SplashOnlyForBalloon;
     private GameObject instSplash;
 
+    public AudioClip splashSound;
+
     public float damage = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

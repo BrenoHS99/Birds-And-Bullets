@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private CapsuleCollider2D hitbox;
+    private SpriteRenderer sprite;
 
     public Transform gunSpawnpoint;
 
@@ -30,12 +32,17 @@ public class PlayerController : MonoBehaviour
     public bool stunned = false;
     public bool dying = false;
 
+    public GameObject gameController;
+    private GameController gameControllerScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         hitbox = GetComponent<CapsuleCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        gameControllerScript = gameController.GetComponent<GameController>();
         healthbarSlider = healthbar.GetComponent<Slider>();
         healthbarFillImage = healthbarFill.GetComponent<Image>();
         health = maxHealth;
@@ -81,9 +88,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerDestroyOnDeath()
+    void RestartSceneOnDeath()
     {
-        Destroy(this.gameObject);
+        sprite.enabled = false;
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
     void PlayerDying()
     {
@@ -96,11 +105,11 @@ public class PlayerController : MonoBehaviour
     private void GiveBalloon()
     {
         instBalloon = Instantiate(balloon, gunSpawnpoint.transform.position, gunSpawnpoint.transform.rotation);
-        instBalloon.transform.parent = gunSpawnpoint.parent;
+        instBalloon.transform.parent = this.gameObject.transform;
         instBalloon.transform.name = "Gun";
     }
 
-    private void TakeDamage(GameObject damageObject, float damage, float knockback, float knockbackRecover)
+    public void TakeDamage(GameObject damageObject, float damage, float knockback, float knockbackRecover)
     {
         stunned = true;
         health -= damage;

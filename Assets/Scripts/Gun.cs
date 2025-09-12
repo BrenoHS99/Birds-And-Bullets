@@ -26,18 +26,27 @@ public class Gun : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public GameObject gameController;
+    private GameController gameControllerScript;
+
     // Update is called once per frame
     private void Update()
     {
-        HandleGunRotation();
-        HandleGunShooting();
-        SpecialBehavior();
+        if (!gameControllerScript.isPaused)
+        {
+            HandleGunRotation();
+            HandleGunShooting();
+            SpecialBehavior();
+        }
     }
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         gunLocalScaleY = gun.transform.localScale.y;
+
+        gameController = GameObject.FindWithTag("GameController");
+        gameControllerScript = gameController.GetComponent<GameController>();
     }
 
     private void HandleGunRotation()
