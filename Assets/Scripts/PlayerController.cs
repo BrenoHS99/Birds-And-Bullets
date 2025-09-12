@@ -146,5 +146,9 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(collision.gameObject, 3f, 10f, 0.2f);
         }
+        if (collision.gameObject.tag == "Boss" && !stunned)
+        {
+            TakeDamage(collision.gameObject, 3f, 15f, 0.3f);
+        }
     }
 }

@@ -106,6 +106,7 @@ MonoBehaviour:
   bulletSpawnpoint: {fileID: 2913457910099608254}
   cooldown: 0.5
   gunName: Balloon
+  gameController: {fileID: 0}
 --- !u!1 &3041369413598561202
 GameObject:
   m_ObjectHideFlags: 0

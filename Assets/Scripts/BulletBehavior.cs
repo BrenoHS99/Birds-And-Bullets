@@ -46,6 +46,14 @@ public class BulletBehavior : MonoBehaviour
             Instantiate(SplashOnlyForBalloon, this.gameObject.transform.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             Destroy(this.gameObject);
         }
+        if (collision.gameObject.tag == "Boss")
+        {
+            BossController bossScript = collision.gameObject.GetComponent<BossController>();
+
+            bossScript.health -= damage;
+            Instantiate(SplashOnlyForBalloon, this.gameObject.transform.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            Destroy(this.gameObject);
+        }
     }
 
     private void SpecialBehavior(string gunName)

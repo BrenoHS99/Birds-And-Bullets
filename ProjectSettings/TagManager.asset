@@ -10,6 +10,8 @@ TagManager:
   - AOE
   - EnemySpawn
   - Sfx
+  - BossSpawn
+  - Boss
   layers:
   - Default
   - TransparentFX
