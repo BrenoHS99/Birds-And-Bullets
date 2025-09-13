@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: Birds and Bullets
   defaultCursor: {fileID: 0}
-  cursorHotspot: {x: 0, y: 0}
+  cursorHotspot: {x: -0.24, y: 0.37}
   m_SplashScreenBackgroundColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1

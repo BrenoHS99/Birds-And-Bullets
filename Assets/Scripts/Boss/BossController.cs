@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class BossController : MonoBehaviour
     public float knockback = 1f;
     public float knockbackRecover = 0.5f;
     public float speed = 1f;
+    public float speedChangePhaseTwo = 5f;
+
+    private Vector2 direction;
+    private float angle;
+    private float gunLocalScaleY;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -21,8 +27,6 @@ public class BossController : MonoBehaviour
 
     public bool stunned = false;
 
-    public GameObject gun;
-
     private float enemyAIActions = 0f;
     public float enemyAIwaitA = 0.1f;
     public float enemyAIwaitB = 0.5f;
@@ -31,6 +35,11 @@ public class BossController : MonoBehaviour
     private GameObject player;
 
     public LayerMask wallLayer;
+    private bool gaveGun = false;
+
+    public GameObject gun;
+    private GameObject gunInst;
+    public Transform gunSpawnpoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -47,6 +56,17 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("CutsceneEnd");
+        }
+        if (health <= maxHealth / 2 && !gaveGun)
+        {
+            gaveGun = true;
+            speed -= speedChangePhaseTwo;
+            gunInst = Instantiate(gun, gunSpawnpoint.position, gunSpawnpoint.rotation);
+            gunInst.transform.parent = transform;
+        }
         animator.SetFloat("Health", health);
         if (hitbox != null)
         {
@@ -78,6 +98,19 @@ public class BossController : MonoBehaviour
         }
     }
 
+    private void HandleGunRotation()
+    {
+        direction = (player.transform.position - gun.transform.position).normalized;
+        gun.transform.up = direction;
+
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        Vector3 localScale = new Vector3(gun.transform.localScale.x, gunLocalScaleY, gun.transform.localScale.z);
+        localScale.y = gunLocalScaleY * -1;
+
+        gun.transform.localScale = localScale;
+    }
+
     void EnemyDestroyOnDeath()
     {
         Destroy(this.gameObject);
@@ -87,7 +120,7 @@ public class BossController : MonoBehaviour
         Destroy(rb);
         Destroy(hitbox);
         Destroy(healthbar);
-        Destroy(gun);
+        Destroy(gunInst);
     }
 
     IEnumerator EnemyAI()

@@ -190,3 +190,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 2
+  shootSound: {fileID: 7093721104529730682, guid: 0739f41062835bd4dabfe9fa69d5bd02, type: 3}
+  sfx: {fileID: 0}

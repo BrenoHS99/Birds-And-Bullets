@@ -29,10 +29,13 @@ public class Gun : MonoBehaviour
     public GameObject gameController;
     private GameController gameControllerScript;
 
+    private GameObject sfx;
+    public GameObject throwSound;
+
     // Update is called once per frame
     private void Update()
     {
-        if (!gameControllerScript.isPaused)
+        if (!gameControllerScript.isPaused && !gameControllerScript.onCutscene)
         {
             HandleGunRotation();
             HandleGunShooting();
@@ -42,6 +45,8 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
+        sfx = GameObject.FindWithTag("Sfx");
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         gunLocalScaleY = gun.transform.localScale.y;
 
@@ -75,9 +80,20 @@ public class Gun : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && notCD)
         {
             notCD = false;
+            TempShootingSound();
             StartCoroutine(CD());
             bulletInst = Instantiate(bullet, bulletSpawnpoint.transform.position, gun.transform.rotation);
         }
+    }
+
+    private void TempShootingSound()
+    {
+        GameObject throwSoundInst;
+        throwSoundInst = Instantiate(throwSound, transform.position, transform.rotation);
+        throwSoundInst.transform.parent = sfx.transform;
+        AudioSource hitSoundSource = throwSoundInst.GetComponent<AudioSource>();
+        hitSoundSource.Play();
+        Destroy(throwSoundInst, hitSoundSource.clip.length);
     }
 
     private void SpecialBehavior()

@@ -233,11 +233,13 @@ MonoBehaviour:
   speed: 5
   healthbar: {fileID: 8525146477624386296}
   stunned: 0
+  gun: {fileID: 0}
   enemyAIwaitA: 0.1
   enemyAIwaitB: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  blockedArea: {fileID: 0}
 --- !u!1 &4191011708753019524
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +375,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &614325104544498503
 MonoBehaviour:

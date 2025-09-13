@@ -35,9 +35,14 @@ public class PlayerController : MonoBehaviour
     public GameObject gameController;
     private GameController gameControllerScript;
 
+    private GameObject sfx;
+
+    public GameObject hitSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        sfx = GameObject.FindWithTag("Sfx");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         hitbox = GetComponent<CapsuleCollider2D>();
@@ -113,6 +118,7 @@ public class PlayerController : MonoBehaviour
     {
         stunned = true;
         health -= damage;
+        TempHitSound();
         Vector2 direction = transform.position - damageObject.gameObject.transform.position;
         direction.Normalize();
         direction *= knockback;
@@ -131,13 +137,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         if (health <= 0)
         {
             healthbarFillImage.color = Color.black;
         }
         healthbarSlider.value = health / maxHealth;
+    }
+
+    private void TempHitSound()
+    {
+        GameObject hitSoundInst;
+        hitSoundInst = Instantiate(hitSound, transform.position, transform.rotation);
+        hitSoundInst.transform.parent = sfx.transform;
+        AudioSource hitSoundSource = hitSoundInst.GetComponent<AudioSource>();
+        hitSoundSource.Play();
+        Destroy(hitSoundInst, hitSoundSource.clip.length);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

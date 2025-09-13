@@ -107,6 +107,7 @@ MonoBehaviour:
   cooldown: 0.5
   gunName: Balloon
   gameController: {fileID: 0}
+  throwSound: {fileID: 559396140739171892, guid: cece06e7338576b488ef9076cfeb919b, type: 3}
 --- !u!1 &3041369413598561202
 GameObject:
   m_ObjectHideFlags: 0
