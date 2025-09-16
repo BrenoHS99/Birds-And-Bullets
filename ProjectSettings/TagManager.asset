@@ -12,6 +12,7 @@ TagManager:
   - Sfx
   - BossSpawn
   - Boss
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX

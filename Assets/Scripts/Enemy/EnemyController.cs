@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEditor;
+using NUnit.Framework.Internal;
 
 public class EnemyController : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if(rb != null)
         {
@@ -89,7 +90,7 @@ public class EnemyController : MonoBehaviour
                 rb.linearVelocity *= -1;
             }
         }
-    }
+    }*/
 
     void EnemyDestroyOnDeath()
     {
@@ -171,6 +172,7 @@ public class EnemyController : MonoBehaviour
             stunned = false;
         }
     }
+
 
     private void UpdateHealthBar()
     {
