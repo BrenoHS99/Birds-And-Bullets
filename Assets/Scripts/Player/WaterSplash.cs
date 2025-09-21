@@ -19,10 +19,21 @@ public class WaterSplash : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && !enemiesHitted.Contains(collision.gameObject))
+        if (collision.gameObject.tag == "EnemyHitbox" && !enemiesHitted.Contains(collision.gameObject))
         {
-            EnemyController enemyScript = collision.gameObject.GetComponent<EnemyController>();
+            GameObject enemy = collision.transform.parent.gameObject;
+            EnemyController enemyScript = enemy.GetComponent<EnemyController>();
+
             enemyScript.health -= damage;
+            enemyScript.TakeKB(this.gameObject);
+        }
+        if (collision.gameObject.tag == "BossHitbox" && !enemiesHitted.Contains(collision.gameObject))
+        {
+            GameObject boss = collision.transform.parent.gameObject;
+            BossController bossScript = boss.GetComponent<BossController>();
+
+            bossScript.health -= damage;
+            bossScript.TakeKB(this.gameObject);
         }
     }
     private void TempSplashSound()

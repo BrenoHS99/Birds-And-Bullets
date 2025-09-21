@@ -158,11 +158,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && !stunned)
+        if (collision.gameObject.tag == "EnemyHitbox" && !stunned)
         {
             TakeDamage(collision.gameObject, 3f, 10f, 0.2f);
         }
-        if (collision.gameObject.tag == "Boss" && !stunned)
+        if (collision.gameObject.tag == "BossHitbox" && !stunned)
         {
             TakeDamage(collision.gameObject, 3f, 15f, 0.3f);
         }

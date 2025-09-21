@@ -13,6 +13,7 @@ TagManager:
   - BossSpawn
   - Boss
   - EnemyHitbox
+  - BossHitbox
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Wall
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 

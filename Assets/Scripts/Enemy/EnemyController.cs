@@ -32,12 +32,14 @@ public class EnemyController : MonoBehaviour
 
     private GameObject player;
 
-    public LayerMask wallLayer;
+    //public LayerMask wallLayer;
 
     public GameObject blockedArea;
     private BlockedNewArea blockedAreaScript;
 
     private bool enemiesDefeatedRebound = true;
+
+    public GameObject dmgHitbox;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -76,6 +78,7 @@ public class EnemyController : MonoBehaviour
         {
             enemiesDefeatedRebound = false;
             blockedAreaScript.enemiesDefeated++;
+            Destroy(dmgHitbox);
         }
     }
 
@@ -151,14 +154,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void TakeKB(GameObject damageObject)
+    public void TakeKB(GameObject damageObject)
     {
         stunned = true;
         animator.SetBool("Walking", false);
         Vector2 direction = transform.position - damageObject.transform.position;
         direction.Normalize();
         direction *= knockback;
-        rb.linearVelocity = direction;
+        if(rb != null)
+        {
+            rb.linearVelocity = direction;
+        }
         StartCoroutine(StopKB());
         UpdateHealthBar();
 
@@ -182,11 +188,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "AOE")
         {
             TakeKB(collision.gameObject);
         }
-    }
+    }*/
 }

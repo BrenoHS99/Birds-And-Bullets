@@ -40,15 +40,18 @@ public class BulletBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "EnemyHitbox")
         {
-            EnemyController enemyScript = collision.gameObject.GetComponent<EnemyController>();
+            GameObject enemy = collision.transform.parent.gameObject;
+            EnemyController enemyScript = enemy.GetComponent<EnemyController>();
 
             enemyScript.health -= damage;
+            enemyScript.TakeKB(this.gameObject);
             Instantiate(SplashOnlyForBalloon, this.gameObject.transform.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "BossHitbox")
         {
-            BossController bossScript = collision.gameObject.GetComponent<BossController>();
+            GameObject boss = collision.transform.parent.gameObject;
+            BossController bossScript = boss.GetComponent<BossController>();
 
             bossScript.health -= damage;
             Instantiate(SplashOnlyForBalloon, this.gameObject.transform.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));

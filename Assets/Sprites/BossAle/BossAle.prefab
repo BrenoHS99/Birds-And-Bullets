@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8684527054868613085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunSpawnpoint
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4859600324604985319}
   - component: {fileID: 7846545072397080896}
   - component: {fileID: 8016870819695752001}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 649364880538625071}
   - component: {fileID: 6995167843266348564}
   - component: {fileID: 3331145121376353485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BossAle
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -170,6 +170,7 @@ Transform:
   m_Children:
   - {fileID: 302399182993725655}
   - {fileID: 8684527054868613085}
+  - {fileID: 2394952116603917899}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6740333395729566851
@@ -261,21 +262,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0916c485e62c44ea65b5a9df96d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  maxHealth: 200
+  health: 350
+  maxHealth: 350
   knockback: 5
   knockbackRecover: 0.1
   speed: 10
-  speedChangePhaseTwo: 5
+  speedChangePhaseTwo: 3
   healthbar: {fileID: 4809264892395829822}
   stunned: 0
   enemyAIwaitA: 0.1
   enemyAIwaitB: 0.5
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
   gun: {fileID: 1613663146505289108, guid: e3bde074b4f15534e97ae1b214a6917f, type: 3}
   gunSpawnpoint: {fileID: 8684527054868613085}
+  dmgHitbox: {fileID: 3267801195244156375}
 --- !u!50 &6995167843266348564
 Rigidbody2D:
   serializedVersion: 5
@@ -302,7 +301,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &3331145121376353485
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -333,12 +332,81 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.12, y: 1.77}
+  m_Direction: 0
+--- !u!1 &3267801195244156375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2394952116603917899}
+  - component: {fileID: 7873765994716718318}
+  m_Layer: 6
+  m_Name: BossHitbox
+  m_TagString: BossHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2394952116603917899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267801195244156375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5079309913817226830}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &7873765994716718318
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267801195244156375}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.02, y: 1.67}
   m_Direction: 0
 --- !u!1 &3287474069780227489
 GameObject:
@@ -351,7 +419,7 @@ GameObject:
   - component: {fileID: 11635747263858760}
   - component: {fileID: 5779079501477461626}
   - component: {fileID: 4942917689235037216}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327978386300497841}
   - component: {fileID: 7270283277691628023}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8920039449834840705}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +619,7 @@ GameObject:
   - component: {fileID: 9090603877677448199}
   - component: {fileID: 6867041241180272454}
   - component: {fileID: 1303099769655798935}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 118.8}
+  m_AnchoredPosition: {x: 0, y: 167}
   m_SizeDelta: {x: 382.7, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6867041241180272454
@@ -607,22 +675,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: A L E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d4900830546576f46b4d9bebe397ffd1, type: 2}
+  m_sharedMaterial: {fileID: 4678094765474909921, guid: d4900830546576f46b4d9bebe397ffd1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279042303
-  m_fontColor: {r: 1, g: 0, b: 0.049562454, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0, g: 0, b: 0, a: 1}
+    topRight: {r: 0, g: 0, b: 0, a: 1}
+    bottomLeft: {r: 1, g: 0, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -632,13 +700,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.8
-  m_fontSizeBase: 70.8
+  m_fontSize: 131.32
+  m_fontSizeBase: 131.32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 8
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -687,7 +755,7 @@ GameObject:
   - component: {fileID: 7893779512867705075}
   - component: {fileID: 2809986730560873480}
   - component: {fileID: 3247710570771433751}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

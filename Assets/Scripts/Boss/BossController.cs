@@ -34,12 +34,14 @@ public class BossController : MonoBehaviour
 
     private GameObject player;
 
-    public LayerMask wallLayer;
+    //public LayerMask wallLayer;
     private bool gaveGun = false;
 
     public GameObject gun;
     private GameObject gunInst;
     public Transform gunSpawnpoint;
+
+    public GameObject dmgHitbox;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -85,7 +87,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if (rb != null)
         {
@@ -96,7 +98,7 @@ public class BossController : MonoBehaviour
                 rb.linearVelocity *= -1;
             }
         }
-    }
+    }*/
 
     private void HandleGunRotation()
     {
@@ -165,7 +167,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void TakeKB(GameObject damageObject)
+    public void TakeKB(GameObject damageObject)
     {
         stunned = true;
         animator.SetBool("Walking", false);
@@ -195,11 +197,11 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "AOE")
         {
             TakeKB(collision.gameObject);
         }
-    }
+    }*/
 }

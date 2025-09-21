@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9103874923206529808}
   - component: {fileID: 7111051009180103672}
   - component: {fileID: 5177367791592878239}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3980560355702286627}
   - component: {fileID: 95863280795912260}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 8409626176639688930}
   - component: {fileID: 8669130023396663537}
   - component: {fileID: 1155349052580138480}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 6169730518881146618}
   - component: {fileID: 1896149333411271991}
   - component: {fileID: 2462618426859903549}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skull_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2920383981169960688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletSpawnpoint
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
@@ -428,6 +428,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3117552732536927803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4632628630487528266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1533198818518156455}
+  - component: {fileID: 4513619197309322289}
+  m_Layer: 6
+  m_Name: EnemyHitbox
+  m_TagString: EnemyHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1533198818518156455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632628630487528266}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.73, y: 1.73, z: 1.73}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 6072594293095056802}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &4513619197309322289
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632628630487528266}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.56, y: 0.96}
+  m_Direction: 0
 --- !u!1 &4638219492611269753
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +506,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5923280925798078267}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +547,7 @@ GameObject:
   - component: {fileID: 6857755551143349550}
   - component: {fileID: 8335206231798361533}
   - component: {fileID: 7699602532677183177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyWithWeaponBigger
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -500,6 +569,7 @@ Transform:
   m_Children:
   - {fileID: 503334036415793327}
   - {fileID: 3117552732536927803}
+  - {fileID: 1533198818518156455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4209600443335863652
@@ -609,7 +679,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -638,7 +708,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -665,10 +735,8 @@ MonoBehaviour:
   gun: {fileID: 2629257774569201835}
   enemyAIwaitA: 0.1
   enemyAIwaitB: 1
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
   blockedArea: {fileID: 0}
+  dmgHitbox: {fileID: 4632628630487528266}
 --- !u!1 &5395624956098486578
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +748,7 @@ GameObject:
   - component: {fileID: 4135648610620548499}
   - component: {fileID: 3064288262425466647}
   - component: {fileID: 7145919080184484469}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
